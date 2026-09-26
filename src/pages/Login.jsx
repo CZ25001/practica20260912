@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,6 +13,10 @@ export default function Login() {
   const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState('');
 
+useEffect(() => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+}, []);
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(loginSchema),
   });
